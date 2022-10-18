@@ -45,7 +45,11 @@ switch (task)
     case 70:
         Task70();
         break;
+    case 72:
+        Task72();
+        break;
 }
+
 void Task64()
 {
     /*
@@ -56,6 +60,12 @@ void Task64()
     */
     int m = GetNumbers();
     int n = GetNumbers();
+    int temp = 0;
+    if (m > n) {
+        temp = m;
+        m = n;
+        n = temp;
+    }
     void PrintEvenNumbers(int m, int n)
     {
         if (m <= n)
@@ -78,6 +88,7 @@ void Task64()
     }
     PrintEvenNumbers(m, n);
 }
+
 void Task66()
 {
     /*
@@ -89,6 +100,12 @@ void Task66()
     Console.Clear();
     int m = GetNumbers();
     int n = GetNumbers();
+    int temp = 0;
+    if (m > n) {
+        temp = m;
+        m = n;
+        n = temp;
+    }
     int sum = 0;
     void PrintSumNaturals(int m, int n, int sum)
     {
@@ -106,6 +123,7 @@ void Task66()
     }
     PrintSumNaturals(m, n, sum);
 }
+
 void Task68()
 {
     /*
@@ -140,7 +158,72 @@ void Task68()
     }
     GetMaxDelitel(m, n, del);
 }
+
 void Task70()
 {
+    /*
+    Дополнительная задача (70): 
+    Напишите программу вычисления функции Аккермана с помощью рекурсии. 
+    Даны два неотрицательных числа m и n.
+    m = 3, n = 2 -> A(m,n) = 29
+    */
+    Console.Clear();
+    int m = GetNumbers();
+    int n = GetNumbers();
+    if (m < 0 || n < 0)
+    {
+        Console.WriteLine("Вы ввели не верное число, числа должны быть неотрицательными.");
+        return;
+    }
+    int GetAkkerman(int m, int n)
+    {
+        if (m == 0)
+        {
+            return n + 1;
+        }
+        else if (m > 0 && n == 0)
+        {
+            return GetAkkerman(m - 1, 1);
+        }
+        else
+        {
+            return GetAkkerman(m - 1, GetAkkerman(m, n - 1));
+        }
+    }
+    int result = GetAkkerman(m, n);
+    Console.WriteLine(result);
+}
 
+void Task72()
+{
+    /*
+    Дополнительная задача 2 (72): Напишите программу, которая выводит монотонную последовательность
+     из N элементов в виде равностороннего треугольника с помощью рекурсии
+    N = 5 -> https://ibb.co/9nZgLtY
+    */
+    Console.Clear();
+    int size = GetNumbers();
+    Console.Clear();
+    int input = 1;
+    int row = 0;
+    void PrintPiramid(int size, int input, int row)
+    {
+        if (size > 0)
+        {
+            Console.SetCursorPosition(size, row);
+            for (int i = 0; i < input; i++)
+            {
+                Console.Write(input + " ");
+            }
+            input++;
+            size--;
+            row++;
+        }
+        else
+        {
+            return;
+        }
+        PrintPiramid(size, input, row);
+    }
+    PrintPiramid(size, input, row);
 }
